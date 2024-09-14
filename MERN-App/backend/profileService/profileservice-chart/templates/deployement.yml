@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: muzahid-profileservice-backend-deployment
+  labels:
+    app: backend-profileservice
+spec:
+  replicas: {{ .Values.backend.replicas }}
+  selector:
+    matchLabels:
+      app: backend-profileservice
+  template:
+    metadata:
+      labels:
+        app: backend-profileservice
+    spec:
+      containers:
+      - name: backend-profileservice
+        image: {{ .Values.backend.image }}
+        resources:
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3002

@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  profileservice:
+    container_name: profileservice
+    restart: always
+    build:
+      context: ./backend/profileService
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./backend/profileService/.env
+
+  helloservice:
+    container_name: helloservice
+    restart: always
+    build:
+      context: ./backend/helloService
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./backend/helloService/.env
+    #depends_on:
+    #  - auth-service
+
+  frontend:
+    container_name: frontend
+    restart: always
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    #depends_on:
+    #  - auth-service
+    #  - streaming-service
+

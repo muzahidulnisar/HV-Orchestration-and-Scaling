@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: muzahid-helloservice-backend-deployment
+  labels:
+    app: backend-helloservice
+spec:
+  replicas: {{ .Values.backend.replicas }}
+  selector:
+    matchLabels:
+      app: backend-helloservice
+  template:
+    metadata:
+      labels:
+        app: backend-helloservice
+    spec:
+      containers:
+      - name: backend-helloservice
+        image: {{ .Values.backend.image }}
+        resources:
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3001
